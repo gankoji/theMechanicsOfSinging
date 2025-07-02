@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Act of Singing: An Interactive Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chosen Palette: Warm Neutrals & Dusty Blue -->
+    <!-- Application Structure Plan: The application is split into two main, user-selectable sections: "The Instrument" (Anatomy) and "The Technique" (APROARTE). This structure was chosen to separate foundational knowledge from practical application, creating a clear learning path. The Anatomy section uses an interactive, clickable diagram instead of a list, transforming passive reading into active exploration and improving spatial understanding of the vocal structures. The APROARTE section uses a tabbed navigation system. This mirrors the workshop's "station rotation" concept, allowing users to focus on one technique at a time without distraction, which is ideal for breaking down complex topics into digestible modules. The user flow is non-linear, encouraging exploration based on individual interest. -->
+    <!-- Visualization & Content Choices: 1. Anatomy Diagram: Info -> Anatomy of the Larynx. Goal -> Organize/Inform. Viz -> Interactive Diagram made with HTML/CSS. Interaction -> Clickable hotspots on diagram elements reveal detailed text descriptions. Justification -> More engaging and memorable than a static list; builds spatial awareness. Method -> Styled HTML divs with JS event listeners. 2. APROARTE Framework: Info -> Core singing techniques. Goal -> Inform/Explain/Practice. Viz -> Tabbed Content Sections. Interaction -> Clicking a tab (e.g., "Posture") displays the relevant concepts and a distinct "Exercise" block. Justification -> Organizes distinct topics cleanly, allows focused learning, and clearly separates theory from practice. Method -> HTML content blocks with JS to toggle visibility. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            background-color: #FDFDFB;
+            font-family: 'Inter', sans-serif;
+        }
+        .nav-button {
+            transition: all 0.3s ease;
+        }
+        .nav-button.active {
+            background-color: #3B82F6;
+            color: #FFFFFF;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .diagram-hotspot {
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+            border-radius: 0.5rem; /* Default rounded corners for all hotspots */
+            border: 2px solid; /* Ensure border is visible */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-weight: 600;
+        }
+        .diagram-hotspot:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.7));
+        }
+        .diagram-hotspot.active-hotspot {
+             border-color: #3B82F6 !important;
+             box-shadow: 0 0 15px rgba(59, 130, 246, 0.8);
+             transform: scale(1.05);
+        }
+        #diagram-epiglottis {
+            background-color: #FBCFE8; border-color: #EC4899; color: #831843;
+            clip-path: ellipse(40% 50% at 50% 50%);
+            width: 16%; height: 10%;
+            top: 5%; left: 50%; transform: translate(-50%, 0%);
+        }
+        #diagram-hyoid {
+            background-color: #FDE68A; border-color: #D97706; color: #92400E;
+            width: 35%; height: 5%;
+            top: 20%; left: 50%; transform: translate(-50%, 0%);
+            border-radius: 9999px; /* Full rounded for bone shape */
+        }
+        #diagram-thyroid {
+            background-color: #C7D2FE; border-color: #6366F1; color: #3730A3;
+            width: 45%; height: 15%;
+            top: 30%; left: 50%; transform: translate(-50%, 0%);
+            clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+        }
+        #diagram-vocal-folds {
+            background-color: #FCA5A5; border-color: #EF4444; color: #991B1B;
+            width: 30%; height: 3%;
+            top: 45%; left: 50%; transform: translate(-50%, 0%);
+            border-radius: 9999px;
+            font-size: 0.75rem; /* text-xs */
+        }
+        #diagram-cricoid {
+            background-color: #A7F3D0; border-color: #059669; color: #047857;
+            width: 40%; height: 8%;
+            top: 58%; left: 50%; transform: translate(-50%, 0%);
+            border-radius: 1rem; /* rounded-xl for a ring shape */
+        }
+        #diagram-trachea {
+            background-color: #E0E7FF; border-color: #6366F1; color: #4338CA;
+            width: 35%; height: 15%;
+            top: 70%; left: 50%; transform: translate(-50%, 0%);
+            border-radius: 0.75rem; /* rounded-lg */
+            font-size: 0.75rem; /* text-xs */
+        }
+        #diagram-intrinsic-muscles {
+            background-color: #DDD6FE; border-color: #8B5CF6; color: #5B21B6;
+            width: 20%; height: 15%;
+            top: 40%; left: 10%;
+            transform: translate(0, -50%);
+            font-size: 0.65rem; /* smaller text for detail */
+        }
+        #diagram-extrinsic-muscles {
+            background-color: #D1FAE5; border-color: #10B981; color: #065F46;
+            width: 20%; height: 15%;
+            top: 40%; right: 10%;
+            transform: translate(0, -50%);
+            font-size: 0.65rem; /* smaller text for detail */
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-7xl">
+        
+        <header class="text-center mb-8 md:mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-2">The Act of Singing</h1>
+            <p class="text-lg md:text-xl text-gray-600">An Interactive Guide for the Northwest Sound Chorus</p>
+        </header>
+
+        <nav class="flex justify-center mb-8 md:mb-12">
+            <div class="flex space-x-2 md:space-x-4 bg-gray-200 p-2 rounded-full">
+                <button data-target="instrument" class="nav-button active px-4 py-2 md:px-6 md:py-3 text-sm md:text-base font-semibold rounded-full">The Instrument</button>
+                <button data-target="technique" class="nav-button px-4 py-2 md:px-6 md:py-3 text-sm md:text-base font-semibold rounded-full">The Technique</button>
+            </div>
+        </nav>
+
+        <main>
+            <section id="instrument" class="content-section active">
+                 <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-gray-800">Anatomy of the Voice</h2>
+                    <p class="mt-2 text-gray-600 max-w-3xl mx-auto">This section provides a simplified, interactive overview of the core structures that make up your vocal instrument. Click on any labeled part of the diagram to learn about its description and role in singing.</p>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+                    <div class="lg:col-span-2 relative w-full max-w-2xl mx-auto h-[550px] bg-blue-50 rounded-lg p-4">
+                        <!-- Anatomical Hotspots - Relative positioning within the diagram container -->
+                        <div id="diagram-epiglottis" data-anatomy="epiglottis" class="diagram-hotspot absolute text-xs">Epiglottis</div>
+                        <div id="diagram-hyoid" data-anatomy="hyoid" class="diagram-hotspot absolute text-xs">Hyoid Bone</div>
+                        <div id="diagram-thyroid" data-anatomy="thyroid" class="diagram-hotspot absolute text-xs">Thyroid Cartilage</div>
+                        <div id="diagram-vocal-folds" data-anatomy="vocalFolds" class="diagram-hotspot absolute text-xs">Vocal Folds</div>
+                        <div id="diagram-cricoid" data-anatomy="cricoid" class="diagram-hotspot absolute text-xs">Cricoid Cartilage</div>
+                        <div id="diagram-trachea" data-anatomy="trachea" class="diagram-hotspot absolute text-xs">Trachea</div>
+                        <div id="diagram-intrinsic-muscles" data-anatomy="intrinsicMuscles" class="diagram-hotspot absolute text-xs">Intrinsic Laryngeal Muscles</div>
+                        <div id="diagram-extrinsic-muscles" data-anatomy="extrinsicMuscles" class="diagram-hotspot absolute text-xs">Extrinsic Laryngeal Muscles</div>
+
+                    </div>
+                    <div id="anatomy-info" class="lg:col-span-1 p-6 bg-white rounded-lg shadow-md min-h-[300px]">
+                        <h3 id="anatomy-title" class="text-2xl font-bold text-blue-600 mb-4">Select a Part</h3>
+                        <div id="anatomy-content">
+                            <p class="text-gray-600">Click a component on the diagram to see its details here.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="technique" class="content-section">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-gray-800">The APROAR(TE) Framework</h2>
+                    <p class="mt-2 text-gray-600 max-w-3xl mx-auto">This section breaks down the core techniques of singing. Each module represents a station in your workshop. Click a tab to focus on that topic, read the key concepts, and try the suggested exercise.</p>
+                </div>
+                <div class="flex flex-wrap justify-center gap-2 mb-8">
+                    <button data-technique="audiation" class="technique-button technique-active bg-blue-500 text-white px-4 py-2 rounded-md font-semibold">Audiation</button>
+                    <button data-technique="posture" class="technique-button bg-gray-200 text-gray-700 px-4 py-2 rounded-md font-semibold">Posture</button>
+                    <button data-technique="respiration" class="technique-button bg-gray-200 text-gray-700 px-4 py-2 rounded-md font-semibold">Respiration</button>
+                    <button data-technique="onset" class="technique-button bg-gray-200 text-gray-700 px-4 py-2 rounded-md font-semibold">Onset</button>
+                    <button data-technique="articulators" class="technique-button bg-gray-200 text-gray-700 px-4 py-2 rounded-md font-semibold">Articulators</button>
+                    <button data-technique="resonance" class="technique-button bg-gray-200 text-gray-700 px-4 py-2 rounded-md font-semibold">Resonance</button>
+                </div>
+
+                <div id="technique-content" class="bg-white p-6 md:p-8 rounded-lg shadow-md">
+                </div>
+
+            </section>
+        </main>
+
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    const anatomyData = {
+        epiglottis: {
+            title: 'Epiglottis',
+            content: `<strong>Description:</strong> A leaf-shaped cartilage located at the top of the larynx. It folds over the trachea during swallowing.<br><br><strong>Role:</strong> Prevents food and liquid from entering the airway. While primarily for swallowing, its position can subtly influence vocal tract shape and resonance.`
+        },
+        hyoid: {
+            title: 'Hyoid Bone',
+            content: `<strong>Description:</strong> A unique U-shaped bone situated above the larynx, suspended by muscles and ligaments.<br><br><strong>Role:</strong> Acts as a crucial anchor for the tongue and various muscles that connect to the larynx, playing a significant role in controlling laryngeal height and stability.`
+        },
+        thyroid: {
+            title: 'Thyroid Cartilage',
+            content: `<strong>Description:</strong> The largest laryngeal cartilage, commonly known as the "Adam's Apple." It forms the front and sides of the larynx, protecting the vocal folds.<br><br><strong>Role:</strong> Its movement, especially its forward tilt, changes the length and tension of the vocal folds, which is vital for pitch adjustment.`
+        },
+        vocalFolds: {
+            title: 'Vocal Folds',
+            content: `<strong>Description:</strong> Two bands of muscle and mucous membrane stretched horizontally across the larynx. They vibrate rapidly to produce sound.<br><br><strong>Role:</strong> Their precise closure and vibration, controlled by intrinsic laryngeal muscles, create the fundamental sound of the voice. Changes in their length and tension alter pitch.`
+        },
+        cricoid: {
+            title: 'Cricoid Cartilage',
+            content: `<strong>Description:</strong> A ring-shaped cartilage that forms the base of the larynx, resting on top of the trachea.<br><br><strong>Role:</strong> Provides the foundation for the entire laryngeal structure. It's a key attachment point for muscles and cartilages that facilitate vocal fold movement and larynx stability.`
+        },
+        trachea: {
+            title: 'Trachea (Windpipe)',
+            content: `<strong>Description:</strong> The main airway extending from the larynx down to the lungs, composed of rings of cartilage.<br><br><strong>Role:</strong> Conducts air from the lungs to the larynx and vice-versa, providing the air pressure necessary to vibrate the vocal folds for sound production.`
+        },
+        intrinsicMuscles: {
+            title: 'Intrinsic Laryngeal Muscles',
+            content: `<strong>Description:</strong> Small, specialized muscles located entirely within the larynx, connecting its various cartilages.<br><br><strong>Role:</strong> Directly control the subtle movements of the vocal folds – bringing them together (adduction), pulling them apart (abduction), and adjusting their length and tension to change pitch and volume.`
+        },
+        extrinsicMuscles: {
+            title: 'Extrinsic Laryngeal Muscles',
+            content: `<strong>Description:</strong> Larger muscle groups that connect the larynx to surrounding structures (like the hyoid bone, jaw, and sternum).<br><br><strong>Role:</strong> Primarily responsible for moving the entire larynx up and down within the neck, which influences vocal tract length, resonance, and can affect vocal comfort and tone quality.`
+        },
+    };
+
+    const techniqueData = {
+        audiation: {
+            title: 'Audiation',
+            content: `<p class="mb-4">Audiation is the ability to hear music in your head—a single pitch, a melody, or harmony—without any external sound source. It's the mental blueprint for the sound you're about to make and is crucial for intonation.</p>
+            <ul class="list-disc list-inside space-y-2 mb-6">
+                <li>If you can't hear the correct pitch in your head, it's nearly impossible to sing it accurately.</li>
+                <li>This skill strengthens with practice, just like a muscle.</li>
+                <li>Strong audiation helps you self-diagnose and correct pitch issues instantly.</li>
+            </ul>`,
+            exercise: {
+                title: 'Exercise: Silent Pitch Matching',
+                steps: [
+                    'The instructor plays a single pitch, then mutes it.',
+                    'Hear that exact pitch in your head, without making a sound.',
+                    'After 5-10 seconds, on cue, everyone sings the pitch they audiate.',
+                    'Assess accuracy and repeat with different pitches.'
+                ]
+            }
+        },
+        posture: {
+            title: 'Posture',
+            content: `<p class="mb-4">Good posture is the physical foundation for breath support and an open vocal tract. It allows your body to function efficiently with minimal tension, working with gravity, not against it.</p>
+            <ul class="list-disc list-inside space-y-2 mb-6">
+                <li><strong>Alignment:</strong> Feet shoulder-width apart, knees soft, spine long, shoulders relaxed, chest open, head balanced.</li>
+                <li>Correct posture allows the diaphragm and abdominal muscles to move freely for optimal breathing.</li>
+                <li>An aligned posture keeps the vocal tract unobstructed, facilitating better resonance.</li>
+            </ul>`,
+            exercise: {
+                title: 'Exercise: The Wall Alignment Check',
+                steps: [
+                    'Stand with your back against a wall, heels 2-3 inches away.',
+                    'Touch the wall with the back of your head, your shoulders, and your buttocks.',
+                    'Maintain a natural curve in your lower back.',
+                    'Step away from the wall, trying to hold that feeling of alignment.',
+                    'Sing a sustained note, focusing on a posture that feels "tall" and "light" without stiffness.'
+                ]
+            }
+        },
+        respiration: {
+            title: 'Respiration',
+            content: `<p class="mb-4">Air from the lungs is the engine of your sound. Effective breathing involves not just taking in air, but managing its release with control and support.</p>
+            <ul class="list-disc list-inside space-y-2 mb-6">
+                <li><strong>Diaphragmatic Breathing:</strong> Inhale by expanding your lower rib cage and abdomen outwards, not by raising your shoulders.</li>
+                <li><strong>Breath Support:</strong> Use your core muscles to manage a steady, controlled exhalation. This provides a consistent stream of air to the vocal folds.</li>
+                <li><strong>The Goal:</strong> A quick, silent inhalation followed by a smooth, sustained exhalation.</li>
+            </ul>`,
+            exercise: {
+                title: 'Exercise: The Sustained Hiss',
+                steps: [
+                    'Take a relaxed, full diaphragmatic breath.',
+                    'Exhale slowly on a soft, consistent "s" sound.',
+                    'Maintain the "s" for as long as possible, keeping the air pressure even.',
+                    'Focus on the abdominal muscles engaging gently inward as you exhale.'
+                ]
+            }
+        },
+        onset: {
+            title: 'Onset',
+            content: `<p class="mb-4">The onset (or attack) is how a vocal sound begins. A good onset requires perfect coordination between your breath support and vocal fold closure.</p>
+            <ul class="list-disc list-inside space-y-2 mb-6">
+                <li><strong>Balanced Onset (Ideal):</strong> Vocal folds close gently just as air begins to flow. The sound is clean and clear.</li>
+                <li><strong>Aspirate Onset (Breathy):</strong> Air flows before the folds close, resulting in an "h" sound.</li>
+                <li><strong>Harsh Glottal Onset (Hard):</strong> Folds close tightly before air flows, causing a percussive "pop." This can be vocally damaging.</li>
+            </ul>`,
+            exercise: {
+                title: 'Exercise: The Hum-Ah Onset',
+                steps: [
+                    'Start with a gentle, relaxed hum ("mmmm") on a comfortable pitch.',
+                    'Without stopping the sound, smoothly open the mouth into a vowel like "ah" ("mmmm-ahhh").',
+                    'The transition should be seamless, with no audible breath or glottal catch.',
+                    'This helps you feel a balanced onset.'
+                ]
+            }
+        },
+        articulators: {
+            title: 'Articulators',
+            content: `<p class="mb-4">The articulators (lips, teeth, tongue, jaw, soft palate) shape the raw sound from the larynx into recognizable words. Their job is to be both precise and relaxed.</p>
+            <ul class="list-disc list-inside space-y-2 mb-6">
+                <li><strong>Key Players:</strong> The lips shape vowels, the tongue tip creates sounds like 't' and 'd', and the jaw provides space.</li>
+                <li><strong>Avoid Tension:</strong> A tense jaw or tongue root can constrict your sound and dampen resonance.</li>
+                <li><strong>The Goal:</strong> Efficient, clear, and energetic articulation without creating stiffness.</li>
+            </ul>`,
+            exercise: {
+                title: 'Exercise: Vowel-Consonant Clarity Drills',
+                steps: [
+                    'On a single pitch, sing through the vowels "ee-eh-ah-oh-oo" with a relaxed jaw.',
+                    'Practice short, crisp consonants followed by a vowel: "pa-pa-pa", "ta-ta-ta", "ka-ka-ka".',
+                    'Slowly sing a short tongue twister on one note, aiming for clarity without tension.'
+                ]
+            }
+        },
+        resonance: {
+            title: 'Resonance',
+            content: `<p class="mb-4">Resonance is the amplification and enrichment of sound in the cavities of your vocal tract (throat, mouth, nasal passages). It's what gives your voice its unique color and projection.</p>
+            <ul class="list-disc list-inside space-y-2 mb-6">
+                <li><strong>Create Space:</strong> A relaxed jaw, a lifted soft palate, and an un-tensed tongue create an open space for sound to grow.</li>
+                <li><strong>The Feeling:</strong> Singers often feel resonance as vibrations in the face, head, or chest ("mask resonance").</li>
+                <li><strong>The Goal:</strong> Find a balance between space and focus to create a tone that is both rich and ringing.</li>
+            </ul>`,
+            exercise: {
+                title: 'Exercise: The "Ng" Hum and Vowel Glide',
+                steps: [
+                    'Hum on an "ng" sound (as in "singing") and focus on feeling vibrations in your nose and cheeks.',
+                    'While maintaining that buzzing sensation, slowly open into an "ah" vowel ("ngaaaaah").',
+                    'Try to transfer the forward "ring" from the hum directly into the vowel.',
+                    'Repeat with other vowels ("ng-eee", "ng-oh").'
+                ]
+            }
+        },
+    };
+
+    const navButtons = document.querySelectorAll('.nav-button');
+    const contentSections = document.querySelectorAll('.content-section');
+    
+    const techniqueButtons = document.querySelectorAll('.technique-button');
+    const techniqueContentContainer = document.getElementById('technique-content');
+
+    const anatomyHotspots = document.querySelectorAll('.diagram-hotspot');
+    const anatomyTitle = document.getElementById('anatomy-title');
+    const anatomyContent = document.getElementById('anatomy-content');
+
+    function switchMainTab(targetId) {
+        contentSections.forEach(section => {
+            section.classList.toggle('active', section.id === targetId);
+        });
+        navButtons.forEach(button => {
+            button.classList.toggle('active', button.dataset.target === targetId);
+        });
+    }
+    
+    function showAnatomyInfo(anatomyId) {
+        const data = anatomyData[anatomyId];
+        if (data) {
+            anatomyTitle.textContent = data.title;
+            anatomyContent.innerHTML = `<p class="text-gray-700">${data.content}</p>`;
+            
+            anatomyHotspots.forEach(spot => {
+                spot.classList.toggle('active-hotspot', spot.dataset.anatomy === anatomyId);
+            });
+        }
+    }
+
+    function showTechniqueInfo(techniqueId) {
+        const data = techniqueData[techniqueId];
+        if (data) {
+            let exerciseHtml = '';
+            if(data.exercise) {
+                const stepsHtml = data.exercise.steps.map(step => `<li class="text-gray-700">${step}</li>`).join('');
+                exerciseHtml = `
+                    <div class="mt-6 bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
+                        <h4 class="font-bold text-lg text-blue-700 mb-2">💡 ${data.exercise.title}</h4>
+                        <ol class="list-decimal list-inside space-y-2">
+                            ${stepsHtml}
+                        </ol>
+                    </div>`;
+            }
+
+            techniqueContentContainer.innerHTML = `
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">${data.title}</h3>
+                <div class="prose max-w-none">${data.content}</div>
+                ${exerciseHtml}
+            `;
+
+            techniqueButtons.forEach(button => {
+                 button.classList.toggle('technique-active', button.dataset.technique === techniqueId);
+                 button.classList.toggle('bg-blue-500', button.dataset.technique === techniqueId);
+                 button.classList.toggle('text-white', button.dataset.technique === techniqueId);
+                 button.classList.toggle('bg-gray-200', button.dataset.technique !== techniqueId);
+                 button.classList.toggle('text-gray-700', button.dataset.technique !== techniqueId);
+            });
+        }
+    }
+
+    navButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            switchMainTab(button.dataset.target);
+        });
+    });
+
+    anatomyHotspots.forEach(hotspot => {
+        hotspot.addEventListener('click', () => {
+            showAnatomyInfo(hotspot.dataset.anatomy);
+        });
+    });
+
+    techniqueButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            showTechniqueInfo(button.dataset.technique);
+        });
+    });
+
+    showTechniqueInfo('audiation');
+});
+</script>
+
+</body>
+</html>
