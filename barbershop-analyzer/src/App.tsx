@@ -106,7 +106,7 @@ const generateSineWave = (frequency: number, time: number, amplitude: number = 1
 
 // Component for the summary section
 const SummaryContent: React.FC = () => (
-  ` <Card>
+  <Card>
     <CardHeader>
       <CardTitle>Barbershop Harmony Explained</CardTitle>
       <CardDescription>Key concepts from the provided text.</CardDescription>
@@ -142,7 +142,7 @@ const SummaryContent: React.FC = () => (
         Allowed chords generally feature simple frequency ratios (low least common denominator among notes), facilitating the "ring." Chord prevalence often correlates with ratio simplicity (e.g., Major/Barbershop Seventh LCD=4, Minor/Minor Sixth LCD=6). Practicality for voice leading also plays a role, especially for symmetric chords. Most chords use four unique notes, with the Dominant Ninth (a five-note chord where one is omitted) being the main exception.
       </p>
     </CardContent>
-  </Card>`
+  </Card>
 );
 
 // Component for the Time Domain Visualizer
