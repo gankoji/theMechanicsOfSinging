@@ -1,0 +1,39 @@
+#+title: Thematic Elements
+* How to analyze a score
+** Textual Analysis
+*** Comparison w/ Original
+*** Translations
+*** Story
+*** Prose
+*** Word Painting
+*** Form
+*** Syllabic stress
+*** Subtext
+** Music
+*** General
+**** Form
+**** Sections
+**** Key
+**** Mode
+*** Rhythm
+**** Meter
+**** Time Signature
+**** Tempo
+**** Motifs
+**** Embellishments
+*** Melody
+**** Tessitura (per part)
+**** Compass (total)
+**** Contour/shape/motion
+**** Displacement (from part to part)
+*** Harmony
+**** Chord Analysis (aka Roman Numerals)
+**** Harmonic Rhythm
+* Themes of charts
+** Rhythm
+** Harmony
+** Melody
+** Lyric
+* How to tell them apart?
+[[file:~/org/Archives/HCNW-25/thematic-arranging.org][Notes from Dan's Class at HCNW]]
+* What to do when they conflict?
