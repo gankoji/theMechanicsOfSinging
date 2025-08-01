@@ -209,19 +209,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const techniqueData = {
         audiation: {
             title: 'Audiation',
-            content: `<p class="mb-4">Audiation is the ability to hear music in your head—a single pitch, a melody, or harmony—without any external sound source. It's the mental blueprint for the sound you're about to make and is crucial for intonation.</p>
-            <ul class="list-disc list-inside space-y-2 mb-6">
-                <li>If you can't hear the correct pitch in your head, it's nearly impossible to sing it accurately.</li>
-                <li>This skill strengthens with practice, just like a muscle.</li>
-                <li>Strong audiation helps you self-diagnose and correct pitch issues instantly.</li>
-            </ul>`,
+            content: `<p class="mb-4">I defined the applicability of audiation in two steps:</p>
+            <ol class="list-decimal list-inside space-y-2 mb-6">
+                <li>Hear the pitch in your head (duh)</li>
+                <li>Visualize yourself singing that pitch and imagine what your instrument feels like to sing that pitch. This is a critical step that is not discussed nearly enough.</li>
+            </ol>
+            <p class="mb-4">For the exercises, I started with the pitch matching exercise. I also added on singing a third above, a fifth above, and a whole step down. For practice at home, I recommended using TETuner to double check accuracy. I also told people to self-assess if they weren't immediately accurate - was the breakdown occurring at Step 1 or Step 2? Oftentimes, the issue was Step 2.</p>`,
             exercise: {
-                title: 'Exercise: Silent Pitch Matching',
+                title: 'Exercise: Pitch Matching and Intervals',
                 steps: [
                     'The instructor plays a single pitch, then mutes it.',
-                    'Hear that exact pitch in your head, without making a sound.',
+                    'Hear that exact pitch in your head, without making a sound (Step 1).',
+                    'Visualize yourself singing that pitch and imagine what your instrument feels like (Step 2).',
                     'After 5-10 seconds, on cue, everyone sings the pitch they audiate.',
-                    'Assess accuracy and repeat with different pitches.'
+                    'Assess accuracy and repeat with different pitches.',
+                    'Progress to singing a third above the given pitch.',
+                    'Progress to singing a fifth above the given pitch.',
+                    'Progress to singing a whole step down from the given pitch.',
+                    'For practice at home, use TETuner to double check accuracy.',
+                    'Self-assess: if not accurate, was the breakdown at Step 1 or Step 2?'
                 ]
             }
         },
@@ -299,19 +305,68 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         resonance: {
             title: 'Resonance',
-            content: `<p class="mb-4">Resonance is the amplification and enrichment of sound in the cavities of your vocal tract (throat, mouth, nasal passages). It's what gives your voice its unique color and projection.</p>
-            <ul class="list-disc list-inside space-y-2 mb-6">
-                <li><strong>Create Space:</strong> A relaxed jaw, a lifted soft palate, and an un-tensed tongue create an open space for sound to grow.</li>
-                <li><strong>The Feeling:</strong> Singers often feel resonance as vibrations in the face, head, or chest ("mask resonance").</li>
-                <li><strong>The Goal:</strong> Find a balance between space and focus to create a tone that is both rich and ringing.</li>
-            </ul>`,
+            content: `<p class="mb-4">I'll define "resonance" in practice as the output of your sound. We will technically cover a couple items that aren't truly under the strict definition of resonance, but they're important related concepts nonetheless.</p>
+            <p class="mb-4">Oftentimes, directors or coaches will provide instructions and direction for a change they want to hear in the chorus sound. It's important to know the "levers" we have available to us as singers to modify our sound and how exactly these levers will change our sound. We'll define these "levers" and how they relate to our sound on a spectrum of bright and dark choices.</p>
+            
+            <h4 class="font-bold text-lg mt-6 mb-3">Vocal Folds</h4>
+            <ul class="list-disc list-inside space-y-2 mb-4">
+                <li>Arguably tied for the most impactful part of your resonance</li>
+                <li>Chest voice vs mixed voice vs falsetto: obvious differences in vocal quality</li>
+                <li>Compression: more compression = brighter, less compression = darker</li>
+                <li>Play with compression by transitioning between a very buzzy, harsh sound and a very breathy, aspirate, h-like sound</li>
+                <li>For barbershop, generally want higher levels of compression</li>
+            </ul>
+            
+            <h4 class="font-bold text-lg mt-6 mb-3">Larynx</h4>
+            <ul class="list-disc list-inside space-y-2 mb-4">
+                <li>Higher larynx position = brighter, lower larynx position = darker</li>
+                <li>Lower larynx by pretending to yawn or using "dumb guy" voice</li>
+                <li>Raise larynx by doing young Disney prince voice</li>
+                <li>For barbershop, generally want to stay between slightly lower and neutral larynx positions</li>
+            </ul>
+            
+            <h4 class="font-bold text-lg mt-6 mb-3">Soft Palate</h4>
+            <ul class="list-disc list-inside space-y-2 mb-4">
+                <li>Valve in top-back of throat that controls air flow to nose (raising soft palate blocks nose)</li>
+                <li>Raised = brighter, lowered = darker</li>
+                <li>Can find soft palate by breathing through mouth and pretending to be in smelly place or eating a spoonful of hot mashed potatoes and making lots of room in the back of your mouth</li>
+                <li>Sing a note and continually use your hand to pinch and unpinch your nose. If the sound does not change, your soft palate is raised.</li>
+                <li>For barbershop, generally want raised soft palate, but ok/necessary to drop on nasal consonants (n, m, etc.) and in some upper parts of vocal range.</li>
+            </ul>
+            
+            <h4 class="font-bold text-lg mt-6 mb-3">Tongue</h4>
+            <ul class="list-disc list-inside space-y-2 mb-4">
+                <li>Arguably tied for first in terms of impact on resonance</li>
+                <li>Broken into three parts - root, middle, tip</li>
+                <li>Tongue root attaches right above larynx in throat. Clenching the root of the tongue produces Chewbacca/"r"-ish sound. For barbershop, almost always want to relax this part of your tongue.</li>
+                <li>Middle of tongue mostly controls vowels - notice this part of your tongue change as you transition back and forth between "ee" and "uh" vowels. Up/forward middle tongue = brighter, flat/down middle tongue = darker. This also controls brightness within vowels - play with slightly changing your middle tongue on an "ah" vowel.</li>
+                <li>Tip of the tongue actually doesn't affect resonance. Coaches often say to touch your tongue to your bottom teeth in order to relax tongue root/coax forward middle tongue.</li>
+            </ul>
+            
+            <h4 class="font-bold text-lg mt-6 mb-3">Lips</h4>
+            <ul class="list-disc list-inside space-y-2 mb-4">
+                <li>Spread/wide = brighter, closed/narrow = darker</li>
+                <li>Play with lip shape on an "ah" vowel</li>
+            </ul>
+            
+            <h4 class="font-bold text-lg mt-6 mb-3">Jaw</h4>
+            <ul class="list-disc list-inside space-y-2 mb-4">
+                <li>Generically think of as volume/overtone controller</li>
+                <li>Open jaw = louder, closed jaw = quieter</li>
+            </ul>
+            
+            <p class="mb-4 mt-6">As singers, it's impossible to be aware of and control all of these levers while you're singing. These are tools to use in order to maintain consistency in your sound throughout your range - e.g., if you notice your sound is darker than you want in your lower range, try playing with choices to make your sound brighter (middle tongue position forward, more vocal fold compression, lips wider, etc.).</p>`,
             exercise: {
-                title: 'Exercise: The "Ng" Hum and Vowel Glide',
+                title: 'Exercise: Exploring Resonance Levers',
                 steps: [
-                    'Hum on an "ng" sound (as in "singing") and focus on feeling vibrations in your nose and cheeks.',
-                    'While maintaining that buzzing sensation, slowly open into an "ah" vowel ("ngaaaaah").',
-                    'Try to transfer the forward "ring" from the hum directly into the vowel.',
-                    'Repeat with other vowels ("ng-eee", "ng-oh").'
+                    'Start with a comfortable pitch in your mid-range on an "ah" vowel.',
+                    'Vocal Folds: Transition between a buzzy, compressed sound and a breathy sound. Notice the brightness difference.',
+                    'Larynx: Sing the note while lowering your larynx (yawn feeling), then raising it (Disney prince voice). Notice the tonal change.',
+                    'Soft Palate: Pinch your nose while singing. If the sound changes, practice raising your soft palate until it doesn\'t.',
+                    'Tongue: Move your middle tongue forward and back on "ah" to experience brightness changes.',
+                    'Lips: Try the same note with spread lips vs. rounded lips to hear the difference.',
+                    'Jaw: Sing with a more open jaw, then with a more closed jaw to notice volume changes.',
+                    'Combine adjustments: Try making your sound brighter by using multiple levers at once.'
                 ]
             }
         },
