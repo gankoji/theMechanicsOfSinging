@@ -1,14 +1,169 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
-    <script type="module" crossorigin src="assets/index-DFd8BFsf.js"></script>
-    <link rel="stylesheet" crossorigin href="assets/index-B2dc-M_-.css">
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Mechanics of Singing - Educational Resources</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+        }
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+        }
+        .nav-link:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">The Mechanics of Singing</h1>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                Educational resources for the Northwest Sound Chorus and vocal enthusiasts
+            </p>
+        </header>
+
+        <!-- Introduction Section -->
+        <section class="bg-white rounded-xl shadow-lg p-6 mb-12">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Welcome to Our Vocal Education Hub</h2>
+            <p class="text-gray-600 mb-4">
+                This repository contains a collection of educational materials designed to help singers understand and improve their vocal technique. 
+                Developed for the Northwest Sound Chorus, these resources cover various aspects of singing from basic anatomy to advanced musical interpretation.
+            </p>
+            <p class="text-gray-600">
+                Whether you're a beginner looking to understand the fundamentals or an experienced singer seeking to refine your technique, 
+                you'll find valuable information and practical exercises to enhance your musical journey.
+            </p>
+        </section>
+
+        <!-- Navigation Cards -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Explore Our Resources</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Learning the Instrument Card -->
+                <div class="card bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="bg-blue-600 p-4">
+                        <h3 class="text-xl font-bold text-white">Learning the Instrument</h3>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-600 mb-4">
+                            An interactive guide to vocal anatomy and technique. Explore the APROAR(TE) framework 
+                            covering Audiation, Posture, Respiration, Onset, Articulators, and Resonance.
+                        </p>
+                        <ul class="text-sm text-gray-500 mb-4">
+                            <li>• Interactive vocal anatomy diagram</li>
+                            <li>• Detailed technique explanations</li>
+                            <li>• Practical exercises for each concept</li>
+                        </ul>
+                        <a href="learning-the-instrument/index.html" class="nav-link inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                            Explore Learning the Instrument
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Thematic Elements Card -->
+                <div class="card bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="bg-purple-600 p-4">
+                        <h3 class="text-xl font-bold text-white">Thematic Elements of Music</h3>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-600 mb-4">
+                            Discover how to connect every musical choice to four pillars: Melody, Lyric, Harmony, and Rhythm. 
+                            Learn how these themes shape expressive singing and interpretation.
+                        </p>
+                        <ul class="text-sm text-gray-500 mb-4">
+                            <li>• Four pillars of musical expression</li>
+                            <li>• Dynamics, timing, and embellishments</li>
+                            <li>• Interactive exercises and examples</li>
+                        </ul>
+                        <a href="thematic-elements/thematic-elements-presentation.html" class="nav-link inline-block bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">
+                            Explore Thematic Elements
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Mechanics of Music Card -->
+                <div class="card bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="bg-green-600 p-4">
+                        <h3 class="text-xl font-bold text-white">Mechanics of Music</h3>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-600 mb-4">
+                            Dive deeper into the technical aspects of music theory and how they apply to singing. 
+                            Understand the building blocks that create beautiful music.
+                        </p>
+                        <ul class="text-sm text-gray-500 mb-4">
+                            <li>• Music theory fundamentals</li>
+                            <li>• Practical applications for singers</li>
+                            <li>• Exercises to reinforce concepts</li>
+                        </ul>
+                        <a href="mechanics-of-music/index.html" class="nav-link inline-block bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">
+                            Explore Mechanics of Music
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Barbershop Analyzer Card -->
+                <div class="card bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="bg-red-600 p-4">
+                        <h3 class="text-xl font-bold text-white">Barbershop Analyzer</h3>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-600 mb-4">
+                            A specialized tool for analyzing and understanding barbershop harmony. 
+                            Perfect for quartets and choruses looking to fine-tune their sound.
+                        </p>
+                        <ul class="text-sm text-gray-500 mb-4">
+                            <li>• Harmony analysis tools</li>
+                            <li>• Barbershop-specific techniques</li>
+                            <li>• Interactive learning features</li>
+                        </ul>
+                        <a href="barbershop-analyzer/index.html" class="nav-link inline-block bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700">
+                            Explore Barbershop Analyzer
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="bg-white rounded-xl shadow-lg p-6 mb-12">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">About Northwest Sound Chorus</h2>
+            <p class="text-gray-600 mb-4">
+                The Northwest Sound Chorus is a dedicated group of singers passionate about barbershop harmony and vocal excellence. 
+                Based in the Pacific Northwest, we bring together singers of all skill levels to create beautiful music and build lasting friendships.
+            </p>
+            <p class="text-gray-600">
+                These educational materials represent our commitment to continuous improvement and sharing knowledge within the singing community. 
+                We believe that understanding the mechanics of singing is key to unlocking each singer's full potential.
+            </p>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center text-gray-600">
+            <p>&copy; 2025 Northwest Sound Chorus. Created with passion for vocal education.</p>
+            <p class="mt-2">
+                <a href="https://github.com/gankoji/theMechanicsOfSinging" target="_blank" class="text-blue-600 hover:underline">View on GitHub</a>
+            </p>
+        </footer>
+    </div>
+</body>
 </html>
