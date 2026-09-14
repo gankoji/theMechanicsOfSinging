@@ -153,7 +153,7 @@ summary { cursor: pointer; padding-block: .65rem; font-weight: 650; }
   .header-inner { flex-direction: column; align-items: flex-start; gap: .8rem; padding-block: 1rem .5rem; }
   .wordmark { font-size: 1.1rem; }
   .brand-mark { width: 2.8rem; height: 2.8rem; font-size: 1.2rem; flex-shrink: 0; }
-  .nav-list { gap: 2rem; }
+  .nav-list { flex-wrap: wrap; gap: .25rem 1.25rem; }
   .nav-list a { padding-block: .75rem; }
   .hero { grid-template-columns: minmax(0, 1fr); padding-block: 2.5rem; }
   .hero h1 { font-size: clamp(2.4rem, 8vw, 3.4rem); }

@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 import { base } from "../../site.config.mjs";
 
 const essays = ["aproarte", "just-intonation", "vowel-resonance"];
-for (const route of ["", "essays/", "resources/", ...essays.map((slug) => `essays/${slug}/`)]) {
+for (const route of ["", "essays/", "resources/", "musical-cv/", ...essays.map((slug) => `essays/${slug}/`)]) {
   test(`${route || "home"} has no page overflow or clipped headings`, async ({ page }) => {
     await page.goto(route || "./");
     await page.evaluate(() => document.fonts.ready);

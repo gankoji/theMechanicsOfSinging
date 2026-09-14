@@ -1,0 +1,39 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ContentsLinks from "../components/ContentsLinks.astro";
+import { Content, getHeadings } from "../content/musical-cv.md";
+import { href } from "../lib/content";
+
+const headings = getHeadings();
+---
+<BaseLayout
+  title="Musical Curriculum Vitae"
+  description="Jacob (Jake) Bailey’s musical background: performance, chorus leadership, coaching, and vocal pedagogy study."
+  section="musical-cv"
+>
+  <article class="shell">
+    <header class="article-header">
+      <p class="eyebrow">About the author</p>
+      <h1>Musical Curriculum Vitae</h1>
+      <p class="lede">The performance, leadership, and study behind my work on The Mechanics of Singing.</p>
+      <p>For my engineering work and broader background, visit <a href="https://jakedoescode.com/">jakedoescode.com</a>.</p>
+    </header>
+    <div class="article-grid">
+      <aside class="article-aside">
+        <div class="contents contents-desktop">
+          <p class="contents-title">In this CV</p>
+          <ContentsLinks headings={headings} label="CV sections" />
+        </div>
+        <details class="contents contents-mobile">
+          <summary>In this CV</summary>
+          <ContentsLinks headings={headings} label="CV sections" />
+        </details>
+        <p class="reading-note">Explore the <a href={href("essays/")}>essays</a> and <a href={href("resources/")}>teaching resources</a> that grow out of this work.</p>
+      </aside>
+      <div class="prose">
+        <Content />
+        <a class="text-link back-top" href="#main">Back to top ↑</a>
+      </div>
+    </div>
+  </article>
+</BaseLayout>

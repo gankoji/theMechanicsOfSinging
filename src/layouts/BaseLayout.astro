@@ -5,7 +5,7 @@ import { href } from "../lib/content";
 interface Props {
   title?: string;
   description?: string;
-  section?: "home" | "essays" | "resources";
+  section?: "home" | "essays" | "resources" | "musical-cv";
   article?: boolean;
   notFound?: boolean;
 }
@@ -23,6 +23,7 @@ const nav = [
   { id: "home", label: "Home", path: "" },
   { id: "essays", label: "Essays", path: "essays/" },
   { id: "resources", label: "Resources", path: "resources/" },
+  { id: "musical-cv", label: "Musical CV", path: "musical-cv/" },
 ];
 ---
 <!doctype html>
@@ -67,7 +68,8 @@ const nav = [
         </div>
         <div class="footer-links">
           <a href={href("resources/")}>Explore the collection</a>
-          <a href="https://jakedoescode.com/">About Jake</a>
+          <a href={href("musical-cv/")}>Jake’s musical CV</a>
+          <a href="https://jakedoescode.com/">Beyond music · jakedoescode.com</a>
           <a href="https://github.com/gankoji/theMechanicsOfSinging">Source on GitHub</a>
         </div>
       </div>

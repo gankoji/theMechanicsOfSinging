@@ -44,5 +44,15 @@ const essays = await publishedEssays();
       <p class="section-intro">Longer explorations of vocal coordination, acoustics, and the choices that help an ensemble sing as one. By Jacob (Jake) Bailey.</p>
       <EssayList essays={essays} />
     </section>
+
+    <section class="section" aria-labelledby="about-jake">
+      <p class="eyebrow">About the author</p>
+      <h2 id="about-jake">Meet Jake Bailey.</h2>
+      <p class="section-intro">I’m a singer, chorus leader, and coach exploring how vocal technique and ensemble listening shape the music we make together. My musical CV traces the performance experience, leadership, and ongoing study behind these essays.</p>
+      <div class="button-row">
+        <a class="button" href={href("musical-cv/")}>Read my musical CV <span aria-hidden="true">→</span></a>
+        <a class="text-link" href="https://jakedoescode.com/">Beyond music · jakedoescode.com <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
   </div>
 </BaseLayout>

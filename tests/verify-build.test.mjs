@@ -3,8 +3,32 @@ import assert from "node:assert/strict";
 import { mkdtemp, mkdir, writeFile, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { verifyBuild } from "../scripts/verify-build.mjs";
+import { requiredPaths, verifyBuild } from "../scripts/verify-build.mjs";
 import { base } from "../site.config.mjs";
+
+test("musical CV is required and receives modern document validation", async () => {
+  const route = "musical-cv/index.html";
+  assert.ok(requiredPaths.includes(route));
+  const dir = await mkdtemp(join(tmpdir(), "singing-cv-verify-"));
+  try {
+    assert.deepEqual(await verifyBuild(dir, { required: [route] }), [
+      `Missing required published resource: ${route}`,
+    ]);
+    await mkdir(join(dir, "musical-cv"));
+    await writeFile(join(dir, route), `<h1 id="cv">CV</h1><h1 id="cv">Duplicate</h1>
+      <table><tr><th>Role</th></tr></table>`);
+    const errors = (await verifyBuild(dir, { required: [route] })).join("\n");
+    for (const pattern of [/duplicate ID/, /exactly one H1/, /keyboard-scrollable/, /scoped headers/]) {
+      assert.match(errors, pattern);
+    }
+    await writeFile(join(dir, route), `<h1 id="cv">Musical Curriculum Vitae</h1>
+      <div role="region" tabindex="0" aria-label="Experience">
+        <table><thead><tr><th scope="col">Role</th></tr></thead>
+          <tbody><tr><td>Director</td></tr></tbody></table>
+      </div>`);
+    assert.deepEqual(await verifyBuild(dir, { required: [route] }), []);
+  } finally { await rm(dir, { recursive: true, force: true }); }
+});
 
 test("verifier follows encoded assets, CSS URLs and fragments; rejects broken output", async () => {
   const dir = await mkdtemp(join(tmpdir(), "singing-verify-"));

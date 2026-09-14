@@ -7,6 +7,7 @@ import { site, base } from "../site.config.mjs";
 
 export const requiredPaths = [
   "index.html", "essays/index.html", "resources/index.html",
+  "musical-cv/index.html",
   "learning-the-instrument/index.html", "mechanics-of-music/index.html",
   "thematic-elements/thematic-elements-presentation.html", "barbershop-analyzer/index.html",
   ...["But How Should I Sing It.pdf", "But How Should I Sing It.txt",
@@ -98,7 +99,7 @@ export async function verifyBuild(directory = "dist", { required = requiredPaths
       for (const attr of ["href", "src"]) if (node.attribs[attr]) await check(node.attribs[attr], file);
     }
     for (const node of $("style, [style]").toArray()) await css($(node).attr("style") ?? $(node).text(), file);
-    const modern = name === "index.html" || name === "404.html" || /^(essays|resources)\//.test(name);
+    const modern = name === "index.html" || name === "404.html" || /^(essays|resources|musical-cv)\//.test(name);
     if (!modern) continue;
     const ids = new Set();
     $("[id]").each((_, node) => {

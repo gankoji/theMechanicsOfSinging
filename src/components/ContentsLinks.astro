@@ -1,7 +1,7 @@
 ---
 import type { MarkdownHeading } from "astro";
-interface Props { headings: MarkdownHeading[] }
-const { headings } = Astro.props;
+interface Props { headings: MarkdownHeading[]; label?: string }
+const { headings, label = "Essay sections" } = Astro.props;
 const sections = headings.filter((heading) => heading.depth === 2).map((heading) => {
   const index = headings.indexOf(heading);
   const end = headings.findIndex((next, i) => i > index && next.depth <= 2);
@@ -11,7 +11,7 @@ const sections = headings.filter((heading) => heading.depth === 2).map((heading)
   };
 });
 ---
-<nav aria-label="Essay sections">
+<nav aria-label={label}>
   <ul>{sections.map((heading) => (
     <li>
       <a href={`#${heading.slug}`}>{heading.text}</a>

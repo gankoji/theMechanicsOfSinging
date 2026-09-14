@@ -57,6 +57,23 @@ The migration added frontmatter to the three initial essays and normalized one
 inline math delimiter from `\(...\)` to `$...$`; the wording and references were
 not rewritten.
 
+## Update the musical CV
+
+`src/content/musical-cv.md` is the public, editable copy of the musical CV from
+`slipbox/projects/bhs-sng-judge-application/musical_cv.md` (source updated
+2026-09-13). It is rendered at `/musical-cv/` with the shared reading layout,
+section navigation, accessible tables, and print styles. It is not an essay and
+does not appear in the essay or teaching-resource catalogs.
+
+The public copy omits the home address, phone number, and BHS membership number.
+It retains the email and career content, with wrapped table rows joined for
+correct Markdown rendering. Preserve those omissions when refreshing the copy;
+do not copy the private original into this repository or `public/`. Updates are
+manual—building the site does not read or depend on the slipbox.
+
+The home page, main navigation, and footer prioritize the musical CV for music
+readers. Links to `jakedoescode.com` remain for Jake’s broader background.
+
 ## Add or update teaching materials
 
 `src/data/resources.ts` is the discovery catalog shared by the home page, topic
