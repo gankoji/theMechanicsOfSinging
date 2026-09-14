@@ -99,7 +99,7 @@ aspirations in the Singing (SNG) category.
 - **Bel Canto Pedagogy** — Deepening formal academic understanding
 - **Vocal Anatomy** — Studied extensively over past 2 years
 - **Key Texts:**
-    - *Diagnosis and Correction of Vocal Faults* (Merrick)
+    - *Diagnosis and Correction of Vocal Faults* (James C. McKinney)
     - Miller, Donald Gray. *Resonance in Singing: Voice Building Through Acoustic Feedback*. Inside View Press, 2008.
     - Austin, Stephen F. *Provenance: Historic Voice Pedagogy Viewed through a Contemporary Lens*. Inside View Press, 2017. ISBN 978-0-9905073-7-6.
     - Barbershop Harmony Society. *Contest and Judging Handbook*.
