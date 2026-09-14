@@ -1,0 +1,24 @@
+---
+import type { MarkdownHeading } from "astro";
+interface Props { headings: MarkdownHeading[] }
+const { headings } = Astro.props;
+const sections = headings.filter((heading) => heading.depth === 2).map((heading) => {
+  const index = headings.indexOf(heading);
+  const end = headings.findIndex((next, i) => i > index && next.depth <= 2);
+  return {
+    ...heading,
+    children: headings.slice(index + 1, end === -1 ? undefined : end).filter((next) => next.depth === 3),
+  };
+});
+---
+<nav aria-label="Essay sections">
+  <ul>{sections.map((heading) => (
+    <li>
+      <a href={`#${heading.slug}`}>{heading.text}</a>
+      {heading.children.length > 0 && <details class="subsections">
+        <summary>Subsections</summary>
+        <ul>{heading.children.map((child) => <li><a href={`#${child.slug}`}>{child.text}</a></li>)}</ul>
+      </details>}
+    </li>
+  ))}</ul>
+</nav>

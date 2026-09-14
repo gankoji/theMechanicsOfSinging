@@ -1,0 +1,36 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ResourceCard from "../../components/ResourceCard.astro";
+import { resources, topics, essayTopics } from "../../data/resources";
+import { publishedEssays, href } from "../../lib/content";
+const essays = await publishedEssays();
+---
+<BaseLayout title="Lessons, tools & workshop resources" section="resources" description="Explore interactive singing lessons, the barbershop harmony model, and Northwest Sound workshop materials alongside related essays.">
+  <div class="shell">
+    <header class="page-header">
+      <p class="eyebrow">The rehearsal bookshelf</p>
+      <h1>Read it. Hear it.<br /><em>Try it together.</em></h1>
+      <p class="lede">Essays meet practical teaching materials here. Follow a topic, open a lesson, or bring a workshop into your next rehearsal.</p>
+      <p>The original lessons and presentations keep their own layouts and interactions, with a shared route back to this collection.</p>
+      <nav class="topic-nav" aria-label="Resource topics">
+        {topics.map((topic) => <a href={`#${topic.id}`}>{topic.title} ↓</a>)}
+      </nav>
+    </header>
+    {topics.map((topic) => (
+      <section class="section" id={topic.id} aria-labelledby={`${topic.id}-heading`}>
+        <p class="eyebrow">{topic.question}</p>
+        <h2 id={`${topic.id}-heading`}>{topic.title}</h2>
+        <p class="section-intro">{topic.description}</p>
+        <div class="reading-pair">
+          <p class="eyebrow">Read alongside · Jake Bailey</p>
+          <ul>{essays.filter((essay) => essayTopics(essay.id, essay.data.topic).includes(topic.id)).map((essay) => (
+            <li><a href={href(`essays/${essay.id}/`)}>{essay.data.title}</a></li>
+          ))}</ul>
+        </div>
+        <div class="resource-grid">
+          {resources.filter((resource) => resource.topics.includes(topic.id)).map((resource) => <ResourceCard resource={resource} />)}
+        </div>
+      </section>
+    ))}
+  </div>
+</BaseLayout>

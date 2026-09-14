@@ -1,0 +1,31 @@
+{
+  "name": "the-mechanics-of-singing",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "engines": { "node": ">=26.0.0" },
+  "scripts": {
+    "dev": "npm run prepare:resources && astro dev",
+    "prepare:resources": "npm --prefix barbershop-analyzer run build && node scripts/prepare-resources.mjs",
+    "check": "astro check",
+    "build": "npm run prepare:resources && astro build && npm run verify",
+    "preview": "astro preview",
+    "verify": "node scripts/verify-build.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "test:browser": "playwright test"
+  },
+  "dependencies": {
+    "@astrojs/markdown-remark": "7.3.1",
+    "astro": "7.3.2",
+    "katex": "0.16.22",
+    "rehype-katex": "7.0.1",
+    "remark-math": "6.0.0",
+    "unist-util-visit": "5.0.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.10",
+    "@playwright/test": "1.63.0",
+    "cheerio": "1.1.2",
+    "typescript": "6.0.3"
+  }
+}

@@ -243,7 +243,7 @@ const TimeDomainVisualizer: React.FC = () => {
         </div>
 
         {/* Note Selection Dropdowns */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
           {selectedRatios.map((_, index) => (
             <div key={index}>
               <Label htmlFor={`noteSelectTime${index}`}>Note {index + 1}</Label>
@@ -626,10 +626,11 @@ function App() {
       <header className="text-center mb-8">
         <h1 className="text-3xl md:text-4xl font-bold text-blue-600 dark:text-blue-400">Barbershop Chord Analyzer</h1>
         <p className="text-lg text-gray-600 dark:text-gray-400">Exploring Just Intonation and Harmonics</p>
+        <p className="mx-auto mt-3 max-w-2xl text-sm text-gray-600 dark:text-gray-400">An illustrative model, not a microphone analyzer: these charts use selected ratios and idealized waves, not recorded voices. They do not measure vocal quality or predict how strongly a real quartet will ring.</p>
       </header>
 
       <Tabs defaultValue="summary" className="w-full">
-        <TabsList className="grid w-full grid-cols-4 mb-6">
+        <TabsList className="grid h-auto w-full grid-cols-2 sm:grid-cols-4 mb-6">
           <TabsTrigger value="summary">Summary</TabsTrigger>
           <TabsTrigger value="time">Time Domain</TabsTrigger>
           <TabsTrigger value="frequency">Frequency Domain</TabsTrigger>

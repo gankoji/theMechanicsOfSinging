@@ -1,0 +1,19 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { href, readingTime } from "../lib/content";
+import { topicTitle } from "../data/resources";
+interface Props { essays: CollectionEntry<"essays">[] }
+const { essays } = Astro.props;
+---
+<ol class="essay-list">
+  {essays.map((essay) => (
+    <li>
+      <div class="essay-meta"><span class="eyebrow">{topicTitle(essay.data.topic)}</span><span>{readingTime(essay)} min read</span></div>
+      <div>
+        <h3><a href={href(`essays/${essay.id}/`)}>{essay.data.title}</a></h3>
+        <p>{essay.data.description}</p>
+      </div>
+      <span class="list-arrow" aria-hidden="true">↗</span>
+    </li>
+  ))}
+</ol>

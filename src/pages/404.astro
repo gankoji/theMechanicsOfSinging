@@ -1,0 +1,12 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { href } from "../lib/content";
+---
+<BaseLayout title="Page not found" notFound>
+  <div class="shell page-header">
+    <p class="eyebrow">404 · A missing note</p>
+    <h1>This page isn’t here.</h1>
+    <p class="lede">Try the essays or resource library to find what you were looking for.</p>
+    <div class="button-row"><a class="button" href={href()}>Return home</a><a href={href("resources/")}>Browse resources →</a></div>
+  </div>
+</BaseLayout>

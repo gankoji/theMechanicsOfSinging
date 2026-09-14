@@ -1,0 +1,17 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import EssayList from "../../components/EssayList.astro";
+import { publishedEssays } from "../../lib/content";
+const essays = await publishedEssays();
+---
+<BaseLayout title="Essays" section="essays" description="Essays by Jake Bailey on vocal pedagogy, flexible tuning, vowel resonance, and expressive barbershop singing.">
+  <div class="shell">
+    <header class="page-header">
+      <p class="eyebrow">Reading & reflection</p>
+      <h1>Essays on singing.</h1>
+      <p class="lede">A place to work through the ideas behind the sound: how we coordinate the voice, listen to one another, and turn technique into expression.</p>
+      <p>By Jacob (Jake) Bailey. Written as part of an ongoing journey in vocal pedagogy and instruction.</p>
+    </header>
+    <section class="section compact" aria-label="Published essays"><EssayList essays={essays} /></section>
+  </div>
+</BaseLayout>

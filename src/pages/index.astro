@@ -1,0 +1,48 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import EssayList from "../components/EssayList.astro";
+import { publishedEssays, href } from "../lib/content";
+import { topics, resources } from "../data/resources";
+const essays = await publishedEssays();
+---
+<BaseLayout>
+  <div class="shell">
+    <section class="hero" aria-labelledby="welcome">
+      <div class="hero-copy">
+        <p class="eyebrow">Voice · Harmony · Expression</p>
+        <h1 id="welcome">Understand the voice.<br /><em>Make music together.</em></h1>
+        <p class="lede">A growing collection of essays and teaching materials on the mechanics—and the art—of singing.</p>
+        <p class="hero-note">From Jake Bailey’s journey in vocal pedagogy to the shared work of a chorus rehearsal. Read, listen, experiment, and bring the ideas back to the music.</p>
+        <div class="button-row">
+          <a class="button" href={href("essays/")}>Read the essays <span aria-hidden="true">→</span></a>
+          <a class="text-link" href={href("resources/")}>Find a lesson or tool <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+      <aside class="practice-panel" aria-labelledby="practice-title">
+        <p class="eyebrow">At rehearsal?</p>
+        <h2 id="practice-title">Go straight<br />to practice.</h2>
+        <ul>{resources.filter((r) => r.id !== "mechanics-of-music").map((resource) => (
+          <li><a href={href(resource.path)}>{resource.title} <span aria-hidden="true">↗</span></a><span>{resource.id === "thematic-elements" ? "Zach Groeblinghoff · Presentation" : resource.format}</span></li>
+        ))}</ul>
+      </aside>
+    </section>
+
+    <section class="section" aria-labelledby="pathways">
+      <div class="section-heading"><div><p class="eyebrow">Follow a question</p><h2 id="pathways">Three ways into the music.</h2></div></div>
+      <div class="topic-grid">
+        {topics.map((topic) => <a class="topic-card" href={href(`resources/#${topic.id}`)}>
+          <p class="eyebrow">{topic.title}</p><h3>{topic.question}</h3><p>{topic.description}</p><span class="text-link">Read & practice <span aria-hidden="true">→</span></span>
+        </a>)}
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="essays-title">
+      <div class="section-heading">
+        <div><p class="eyebrow">Notes from the journey</p><h2 id="essays-title">Ideas worth listening to.</h2></div>
+        <a class="text-link" href={href("essays/")}>All essays <span aria-hidden="true">→</span></a>
+      </div>
+      <p class="section-intro">Longer explorations of vocal coordination, acoustics, and the choices that help an ensemble sing as one. By Jacob (Jake) Bailey.</p>
+      <EssayList essays={essays} />
+    </section>
+  </div>
+</BaseLayout>

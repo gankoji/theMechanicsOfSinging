@@ -1,0 +1,19 @@
+---
+import { href } from "../lib/content";
+import type { Resource } from "../data/resources";
+interface Props { resource: Resource }
+const { resource } = Astro.props;
+---
+<article class="resource-card">
+  <p class="eyebrow">{resource.format}</p>
+  <h3><a href={href(resource.path)}>{resource.title} <span aria-hidden="true">↗</span></a></h3>
+  <p class="credit">{resource.credit}</p>
+  <p>{resource.description}</p>
+  {resource.note && <p class="resource-note">{resource.note}</p>}
+  {resource.downloads && (
+    <details class="downloads">
+      <summary>Workshop documents & downloads</summary>
+      <ul>{resource.downloads.map((file) => <li><a href={href(file.path)}>{file.label}</a></li>)}</ul>
+    </details>
+  )}
+</article>

@@ -1,0 +1,55 @@
+---
+import { render, type CollectionEntry } from "astro:content";
+import "katex/dist/katex.min.css";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import EssayList from "../../components/EssayList.astro";
+import ResourceCard from "../../components/ResourceCard.astro";
+import ContentsLinks from "../../components/ContentsLinks.astro";
+import { publishedEssays, readingTime, href } from "../../lib/content";
+import { resources, topicTitle, essayTopics } from "../../data/resources";
+
+export async function getStaticPaths() {
+  return (await publishedEssays()).map((essay) => ({ params: { id: essay.id }, props: { essay } }));
+}
+interface Props { essay: CollectionEntry<"essays"> }
+const { essay } = Astro.props;
+const { Content, headings } = await render(essay);
+const related = (await publishedEssays()).filter((other) => other.id !== essay.id);
+const connections = essayTopics(essay.id, essay.data.topic);
+const practice = resources.filter((resource) => resource.topics.some((topic) => connections.includes(topic)));
+---
+<BaseLayout title={essay.data.title} description={essay.data.description} section="essays" article>
+  <article class="shell">
+    <header class="article-header">
+      <a class="breadcrumb" href={href("essays/")}>← All essays</a>
+      <p class="eyebrow">{topicTitle(essay.data.topic)}</p>
+      <h1>{essay.data.title}</h1>
+      <p class="byline">Jacob (Jake) Bailey <span aria-hidden="true">·</span> {readingTime(essay)} min read</p>
+      <p class="lede">{essay.data.description}</p>
+    </header>
+    <div class="article-grid">
+      <aside class="article-aside">
+        <div class="contents contents-desktop">
+          <p class="contents-title">In this essay</p>
+          <ContentsLinks headings={headings} />
+        </div>
+        <details class="contents contents-mobile">
+          <summary>In this essay</summary>
+          <ContentsLinks headings={headings} />
+        </details>
+        <p class="reading-note">Take these ideas into rehearsal. Read, listen, and test one small adjustment at a time.</p>
+      </aside>
+      <div class="prose"><Content /></div>
+    </div>
+    <section class="section" aria-labelledby="practice-heading">
+      <p class="eyebrow">From reading to rehearsal</p>
+      <h2 id="practice-heading">Put it into practice.</h2>
+      <div class="resource-grid">{practice.map((resource) => <ResourceCard resource={resource} />)}</div>
+    </section>
+    <section class="section" aria-labelledby="related-heading">
+      <h2 id="related-heading">Keep exploring.</h2>
+      <EssayList essays={related} />
+      <a class="text-link back-top" href="#main">Back to top ↑</a>
+    </section>
+  </article>
+</BaseLayout>

@@ -1,0 +1,76 @@
+---
+import "../styles/global.css";
+import { href } from "../lib/content";
+
+interface Props {
+  title?: string;
+  description?: string;
+  section?: "home" | "essays" | "resources";
+  article?: boolean;
+  notFound?: boolean;
+}
+
+const {
+  title = "The Mechanics of Singing",
+  description = "Essays, lessons, and rehearsal resources exploring the voice, barbershop harmony, and expressive singing.",
+  section = "home",
+  article = false,
+  notFound = false,
+} = Astro.props;
+const pageTitle = title === "The Mechanics of Singing" ? title : `${title} · The Mechanics of Singing`;
+const canonical = new URL(notFound ? href("404.html") : Astro.url.pathname, Astro.site);
+const nav = [
+  { id: "home", label: "Home", path: "" },
+  { id: "essays", label: "Essays", path: "essays/" },
+  { id: "resources", label: "Resources", path: "resources/" },
+];
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#f5f1e8" />
+    <meta name="generator" content={Astro.generator} />
+    {notFound && <meta name="robots" content="noindex" />}
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href={href("favicon.svg")} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:type" content={article ? "article" : "website"} />
+    <meta property="og:site_name" content="The Mechanics of Singing" />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="shell header-inner">
+        <a class="wordmark" href={href()}>
+          <span class="brand-mark" aria-hidden="true">m<span>///</span>s</span>
+          <span>The Mechanics<br />of Singing</span>
+        </a>
+        <nav aria-label="Main navigation">
+          <ul class="nav-list">
+            {nav.map((item) => <li><a href={href(item.path)} aria-current={!notFound && section === item.id ? (article ? "location" : "page") : undefined}>{item.label}</a></li>)}
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main id="main" tabindex="-1"><slot /></main>
+    <footer class="site-footer">
+      <div class="shell footer-inner">
+        <div>
+          <p class="footer-title">A practice of listening.</p>
+          <p>Essays by Jacob (Jake) Bailey, alongside teaching materials<br class="desktop-break" /> developed for the Northwest Sound Chorus. Contributors credited throughout.</p>
+        </div>
+        <div class="footer-links">
+          <a href={href("resources/")}>Explore the collection</a>
+          <a href="https://jakedoescode.com/">About Jake</a>
+          <a href="https://github.com/gankoji/theMechanicsOfSinging">Source on GitHub</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
